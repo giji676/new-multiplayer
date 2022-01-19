@@ -19,13 +19,24 @@ public class PlayerControl : NetworkBehaviour
 
     private void Start()
     {
-        // Give the player random position on start
-        transform.position = new Vector3(Random.Range(defaultInitialPlanePosition.x, defaultInitialPlanePosition.y), 0, Random.Range(defaultInitialPlanePosition.x, defaultInitialPlanePosition.y));
+        if (IsClient && IsOwner)
+        {
+            // Give the player random position on start
+            transform.position = new Vector3(Random.Range(defaultInitialPlanePosition.x, defaultInitialPlanePosition.y), 0, Random.Range(defaultInitialPlanePosition.x, defaultInitialPlanePosition.y));
+        }
 
         motor = GetComponent<PlayerMotor>();
     }
 
     private void Update()
+    {
+        if (IsClient && IsOwner)
+        {
+            ClientInput();
+        }
+    }
+
+    private void ClientInput()
     {
         // Player rotation and position input
 
