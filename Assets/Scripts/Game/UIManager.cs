@@ -24,7 +24,7 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        //playersInGameText.text = $"Players in game: {PlayerManager.Instance.PlayersInGame}";
+        playersInGameText.text = $"Players in game: {PlayerManager.Instance.PlayersInGame}";
     }
 
     private void Start()
