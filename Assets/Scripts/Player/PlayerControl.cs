@@ -10,7 +10,7 @@ public class PlayerControl : NetworkBehaviour
     private float sensitivity = 3f;
 
     [SerializeField]
-    private Vector2 defaultInitialPalnePosition = new Vector2(-4, 4);
+    private Vector2 defaultInitialPlanePosition = new Vector2(-4, 4);
 
     private float _xMov;
     private float _zMov;
@@ -19,12 +19,19 @@ public class PlayerControl : NetworkBehaviour
 
     private void Start()
     {
+        // Give the player random position on start
+        transform.position = new Vector3(
+            Random.Range(defaultInitialPlanePosition.x, defaultInitialPlanePosition.y), 
+            0,
+            Random.Range(defaultInitialPlanePosition.x, defaultInitialPlanePosition.y));
+
         motor = GetComponent<PlayerMotor>();
     }
 
     private void Update()
     {
         // Player rotation and position input
+
         // Calculate movement velocity as a 3D vector
         _xMov = Input.GetAxisRaw("Horizontal");
         _zMov = Input.GetAxisRaw("Vertical");

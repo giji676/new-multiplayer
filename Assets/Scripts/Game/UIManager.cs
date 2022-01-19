@@ -24,11 +24,13 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
+        // Update the Players in game text GUI
         playersInGameText.text = $"Players in game: {PlayerManager.Instance.PlayersInGame}";
     }
 
     private void Start()
     {
+        // Give functions to the GUI start buttons
         startHostButton.onClick.AddListener(() => 
         {
             NetworkManager.Singleton.StartHost();

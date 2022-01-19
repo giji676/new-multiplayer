@@ -17,13 +17,15 @@ public class PlayerHUD : NetworkBehaviour
 
     public void SetOverlay()
     {
+        // Get the TextMeshProUGUI from the player and update it to player ID
         var localPlayerOverlay = gameObject.GetComponentInChildren<TextMeshProUGUI>();
         localPlayerOverlay.text = playersName.Value;
     }
 
     private void Update()
     {
-        if(!overlaySet && !string.IsNullOrEmpty(playersName.Value))
+        // If the TextMeshProUGUI hasn't been already changed, change it
+        if (!overlaySet && !string.IsNullOrEmpty(playersName.Value))
         {
             SetOverlay();
             overlaySet = true;

@@ -15,6 +15,7 @@ public class PlayerManager : Singleton<PlayerManager>
 
     private void Start()
     {
+        // Update playersInGame value on connects/disconnects
         NetworkManager.Singleton.OnClientConnectedCallback += (id) =>
         {
             if (NetworkManager.Singleton.IsServer)
