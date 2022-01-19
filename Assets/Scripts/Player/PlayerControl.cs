@@ -20,10 +20,7 @@ public class PlayerControl : NetworkBehaviour
     private void Start()
     {
         // Give the player random position on start
-        transform.position = new Vector3(
-            Random.Range(defaultInitialPlanePosition.x, defaultInitialPlanePosition.y), 
-            0,
-            Random.Range(defaultInitialPlanePosition.x, defaultInitialPlanePosition.y));
+        transform.position = new Vector3(Random.Range(defaultInitialPlanePosition.x, defaultInitialPlanePosition.y), 0, Random.Range(defaultInitialPlanePosition.x, defaultInitialPlanePosition.y));
 
         motor = GetComponent<PlayerMotor>();
     }
