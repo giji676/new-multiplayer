@@ -4,10 +4,10 @@ using UnityEngine;
 public class PlayerControl : NetworkBehaviour
 {
     [SerializeField]
-    private float speed = 5f;
+    private float speed = 9f;
 
     [SerializeField]
-    private float sensitivity = 1.5f;
+    private float sensitivity = 3f;
 
     [SerializeField]
     private Vector2 defaultInitialPalnePosition = new Vector2(-4, 4);
