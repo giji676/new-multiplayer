@@ -871,3 +871,4 @@ Received Import Request.
 Start importing Assets/Character/Prefabs/PlayerCT.prefab using Guid(5acdec55865a14949a080cd1f4cfb32c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3a26405245ff427fe18ff83af1fed3dc') in 0.105514 seconds 
   Import took 0.108854 seconds .
 
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file
