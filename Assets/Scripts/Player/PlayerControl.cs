@@ -3,6 +3,13 @@ using UnityEngine;
 
 public class PlayerControl : NetworkBehaviour
 {
+    public enum PlayerState
+    {
+        Idle,
+        Walk,
+        ReverseWalk
+    }
+
     [SerializeField]
     private float speed = 9f;
 
@@ -12,10 +19,14 @@ public class PlayerControl : NetworkBehaviour
     [SerializeField]
     private Vector2 defaultInitialPlanePosition = new Vector2(-4, 4);
 
+    [SerializeField]
+    private NetworkVariable<PlayerState> networkPlayerState = new NetworkVariable<PlayerState>();
+
     private float _xMov;
     private float _zMov;
 
     private PlayerMotor motor;
+    private Animator animator;
 
     private void Start()
     {
@@ -26,6 +37,7 @@ public class PlayerControl : NetworkBehaviour
         }
 
         motor = GetComponent<PlayerMotor>();
+        animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -34,6 +46,8 @@ public class PlayerControl : NetworkBehaviour
         {
             ClientInput();
         }
+        _PlayerStateUpdate();
+        ClientVisuals();
     }
 
     private void ClientInput()
@@ -60,5 +74,46 @@ public class PlayerControl : NetworkBehaviour
 
         // Apply _velocity, _rotation, _cameraRotation in PlayerMotor
         motor.UpdateClientVelocityRotation(_velocity, _rotation, _cameraRotation);
+    }
+
+    [ServerRpc]
+    public void UpdatePlayerStateServerRpc(PlayerState newState)
+    {
+        // Update networkPlayerState with a new state
+        networkPlayerState.Value = newState;
+    }
+
+    private void _PlayerStateUpdate()
+    {
+        // Player state changes
+        if (_zMov > 0)
+        {
+            UpdatePlayerStateServerRpc(PlayerState.Walk);
+        }
+        else if (_zMov < 0)
+        {
+            UpdatePlayerStateServerRpc(PlayerState.ReverseWalk);
+        }
+        else
+        {
+            UpdatePlayerStateServerRpc(PlayerState.Idle);
+        }
+    }
+
+    private void ClientVisuals()
+    {
+        // Set animator values beased on PlayerState
+        if (networkPlayerState.Value == PlayerState.Walk)
+        {
+            animator.SetFloat("Walk", 1);
+        }
+        else if (networkPlayerState.Value == PlayerState.ReverseWalk)
+        {
+            animator.SetFloat("Walk", -1);
+        }
+        else
+        {
+            animator.SetFloat("Walk", 0);
+        }
     }
 }
