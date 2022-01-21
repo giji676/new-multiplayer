@@ -38,17 +38,26 @@ public class UIManager : MonoBehaviour
         // Give functions to the GUI start buttons
         startHostButton.onClick.AddListener(() => 
         {
-            NetworkManager.Singleton.StartHost();
+            if (NetworkManager.Singleton.StartHost())
+                Logger.Instance.LogInfo("Host started...");
+            else
+                Logger.Instance.LogInfo("Unable to start host...");
         });
 
         startClientButton.onClick.AddListener(() =>
         {
-            NetworkManager.Singleton.StartClient();
+            if (NetworkManager.Singleton.StartClient())
+                Logger.Instance.LogInfo("Client started...");
+            else
+                Logger.Instance.LogInfo("Unable to start client...");
         });
 
         startServerButton.onClick.AddListener(() =>
         {
-            NetworkManager.Singleton.StartServer();
+            if (NetworkManager.Singleton.StartServer())
+                Logger.Instance.LogInfo("Server started...");
+            else
+                Logger.Instance.LogInfo("Unable to start server...");
         });
 
         NetworkManager.Singleton.OnServerStarted += () =>
