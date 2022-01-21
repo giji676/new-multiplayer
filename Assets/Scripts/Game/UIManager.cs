@@ -15,7 +15,12 @@ public class UIManager : MonoBehaviour
     private Button startServerButton;
 
     [SerializeField]
+    private Button executePhysicsButton;
+
+    [SerializeField]
     private TextMeshProUGUI playersInGameText;
+
+    private bool serverStarted = false;
 
     private void Awake()
     {
@@ -44,6 +49,18 @@ public class UIManager : MonoBehaviour
         startServerButton.onClick.AddListener(() =>
         {
             NetworkManager.Singleton.StartServer();
+        });
+
+        NetworkManager.Singleton.OnServerStarted += () =>
+        {
+            serverStarted = true;
+        };
+
+        executePhysicsButton.onClick.AddListener(() =>
+        {
+            if (!serverStarted) return;
+
+            SpawnerControl.Instance.SpawnObjects();
         });
     }
 }

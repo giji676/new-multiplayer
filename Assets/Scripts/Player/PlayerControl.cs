@@ -45,8 +45,9 @@ public class PlayerControl : NetworkBehaviour
         if (IsClient && IsOwner)
         {
             ClientInput();
+            PlayerStateUpdate();
         }
-        _PlayerStateUpdate();
+
         ClientVisuals();
     }
 
@@ -83,7 +84,7 @@ public class PlayerControl : NetworkBehaviour
         networkPlayerState.Value = newState;
     }
 
-    private void _PlayerStateUpdate()
+    private void PlayerStateUpdate()
     {
         // Player state changes
         if (_zMov > 0)

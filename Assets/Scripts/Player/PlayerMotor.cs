@@ -59,6 +59,7 @@ public class PlayerMotor : NetworkBehaviour
         }
     }
 
+    // Update the server positions for the player
     [ServerRpc]
     public void UpdateClientPosRotServerRpc(Vector3 newVelocity, Vector3 newRotation, Vector3 newCameraRotation)
     {

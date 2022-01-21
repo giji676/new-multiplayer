@@ -1,9 +1,8 @@
 using UnityEngine;
-using Unity.Netcode;
 
 namespace Singletons
 {
-    public class Singleton<T> : NetworkBehaviour
+    public class Singleton<T> : MonoBehaviour
         where T : Component
     {
         private static T _instance;
