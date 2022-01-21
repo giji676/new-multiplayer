@@ -18,6 +18,9 @@ public class UIManager : MonoBehaviour
     private Button executePhysicsButton;
 
     [SerializeField]
+    private TMP_InputField joinCodeInput;
+
+    [SerializeField]
     private TextMeshProUGUI playersInGameText;
 
     private bool serverStarted = false;
@@ -36,22 +39,32 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         // Give functions to the GUI start buttons
-        startHostButton.onClick.AddListener(() => 
+        // Start Host
+        startHostButton.onClick.AddListener(async () => 
         {
+            if (RelayManager.Instance.IsRelayEnabled)
+                await RelayManager.Instance.SetupRelay();
+
+
             if (NetworkManager.Singleton.StartHost())
                 Logger.Instance.LogInfo("Host started...");
             else
                 Logger.Instance.LogInfo("Unable to start host...");
         });
 
-        startClientButton.onClick.AddListener(() =>
+        // Start Client
+        startClientButton.onClick.AddListener(async () =>
         {
+            if (RelayManager.Instance.IsRelayEnabled && !string.IsNullOrEmpty(joinCodeInput.text))
+                await RelayManager.Instance.JoinRelay(joinCodeInput.text);
+
             if (NetworkManager.Singleton.StartClient())
                 Logger.Instance.LogInfo("Client started...");
             else
                 Logger.Instance.LogInfo("Unable to start client...");
         });
 
+        // Start Server
         startServerButton.onClick.AddListener(() =>
         {
             if (NetworkManager.Singleton.StartServer())
@@ -65,6 +78,7 @@ public class UIManager : MonoBehaviour
             serverStarted = true;
         };
 
+        // Execute Physics
         executePhysicsButton.onClick.AddListener(() =>
         {
             if (!serverStarted) return;
