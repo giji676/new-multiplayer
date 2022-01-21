@@ -1587,7 +1587,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3464297255
+  GlobalObjectIdHash: 957128889
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
@@ -2323,14 +2323,14 @@ MonoBehaviour:
   NetworkConfig:
     ProtocolVersion: 0
     NetworkTransport: {fileID: 1729816322}
-    PlayerPrefab: {fileID: 285140413904862053, guid: 5acdec55865a14949a080cd1f4cfb32c, type: 3}
+    PlayerPrefab: {fileID: 285140413904862053, guid: 5089df303d3163948950872bf70539b6, type: 3}
     NetworkPrefabs:
     - Override: 0
       Prefab: {fileID: 6778897657053193540, guid: 3fa02e1da50b5d84d83287201905b7b0, type: 3}
       SourcePrefabToOverride: {fileID: 0}
       SourceHashToOverride: 0
       OverridingTargetPrefab: {fileID: 0}
-    TickRate: 32
+    TickRate: 30
     ClientConnectionBufferTimeout: 10
     ConnectionApproval: 0
     ConnectionData: 
@@ -2594,7 +2594,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1894057660
+  GlobalObjectIdHash: 1107692563
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1

@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/MainMultiplayerWithRelayClientTransform.unity
+    guid: 9df3a82d434745c4a878be284a54a684
   m_configObjects: {}
