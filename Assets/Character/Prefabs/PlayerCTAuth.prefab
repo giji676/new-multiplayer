@@ -73,6 +73,7 @@ GameObject:
   m_Component:
   - component: {fileID: 630175324907790815}
   - component: {fileID: 5976002702294966205}
+  - component: {fileID: -7415805111941560216}
   - component: {fileID: -8647356248777130681}
   - component: {fileID: 231975232891534430}
   - component: {fileID: 3634221351535946081}
@@ -122,6 +123,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!143 &-7415805111941560216
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 285140413904862053}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &-8647356248777130681
 Animator:
   serializedVersion: 3
@@ -184,9 +203,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 735d483eef27f8943ab1051e149ba569, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 9
+  walkSpeed: 5
+  runSpeed: 10
+  currentSpeed: 0
   sensitivity: 3
-  defaultInitialPlanePosition: {x: -4, y: 4}
+  defaultInitialPlanePosition: {x: -5, y: 5}
   networkPlayerState:
     m_InternalValue: 0
 --- !u!114 &1661484987619388845
