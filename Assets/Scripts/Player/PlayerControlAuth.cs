@@ -11,7 +11,7 @@ public class PlayerControlAuth : NetworkBehaviour
     }
 
     [SerializeField]
-    private float speed = 9f;
+    private float speed = 5f;
 
     [SerializeField]
     private float sensitivity = 3f;
@@ -23,7 +23,7 @@ public class PlayerControlAuth : NetworkBehaviour
     private NetworkVariable<PlayerState> networkPlayerState = new NetworkVariable<PlayerState>();
 
     private float _xMov;
-    private float _zMov;
+    private float _zMov; 
 
     private PlayerMotorAuth motor;
     private Animator animator;
@@ -31,7 +31,7 @@ public class PlayerControlAuth : NetworkBehaviour
     private void Start()
     {
         if (IsClient && IsOwner)
-        {
+        {            
             // Give the player random position on start
             transform.position = new Vector3(Random.Range(defaultInitialPlanePosition.x, defaultInitialPlanePosition.y), 0, Random.Range(defaultInitialPlanePosition.x, defaultInitialPlanePosition.y));
         }

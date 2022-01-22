@@ -1472,7 +1472,7 @@ GameObject:
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: MainCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1509,9 +1509,9 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
+  near clip plane: 0.1
+  far clip plane: 5000
+  field of view: 40
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -1536,13 +1536,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.32604697, y: -0, z: -0, w: 0.94535357}
-  m_LocalPosition: {x: 0, y: 7.14, z: -25.41}
+  m_LocalRotation: {x: 0.19853905, y: -0, z: -0, w: 0.980093}
+  m_LocalPosition: {x: 0, y: 1.68, z: -20.72}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1798798891}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 38.058, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 22.903, y: 0, z: 0}
 --- !u!1 &1085948115
 GameObject:
   m_ObjectHideFlags: 0
@@ -2358,9 +2358,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ProtocolType: 1
-  m_MaximumPacketSize: 1400
   m_MaxPacketQueueSize: 128
   m_SendQueueBatchSize: 6144
+  m_MaxSendQueueSize: 98304
   m_HeartbeatTimeoutMS: 500
   m_ConnectTimeoutMS: 1000
   m_MaxConnectAttempts: 60

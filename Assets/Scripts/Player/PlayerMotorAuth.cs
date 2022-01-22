@@ -8,7 +8,10 @@ using Unity.Netcode.Samples;
 public class PlayerMotorAuth : NetworkBehaviour
 {
     [SerializeField]
-    private Camera cam;
+    private Camera playerCamera;
+
+    [SerializeField]
+    private AudioListener audioListener;
 
     [SerializeField]
     private Vector3 velocity;
@@ -24,6 +27,12 @@ public class PlayerMotorAuth : NetworkBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        if (IsClient && !IsOwner)
+        {
+            playerCamera.enabled = false;
+            audioListener.enabled = false;
+        }
     }
 
     // Update local variables from PlayerControl
@@ -54,9 +63,9 @@ public class PlayerMotorAuth : NetworkBehaviour
     private void perfromRotation()
     {
         rb.MoveRotation(rb.rotation * Quaternion.Euler(rotation));
-        if (cam != null)
+        if (playerCamera != null)
         {
-            cam.transform.Rotate(-cameraRotation);
+            playerCamera.transform.Rotate(-cameraRotation);
         }
     }
 }
