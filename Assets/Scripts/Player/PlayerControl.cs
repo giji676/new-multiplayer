@@ -74,7 +74,7 @@ public class PlayerControl : NetworkBehaviour
         Vector3 _cameraRotation = new Vector3(_xRot, 0f, 0f) * sensitivity;
 
         // Apply _velocity, _rotation, _cameraRotation in PlayerMotor
-        motor.UpdateClientVelocityRotation(_velocity, _rotation, _cameraRotation);
+        //motor.UpdateClientVelocityRotation(_velocity, _rotation, _cameraRotation);
     }
 
     [ServerRpc]

@@ -1,9 +1,7 @@
 using UnityEngine;
 using Unity.Netcode;
-using Unity.Netcode.Samples;
 
 [RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(ClientNetworkTransform))]
 
 public class PlayerMotorAuth : NetworkBehaviour
 {

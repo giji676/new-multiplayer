@@ -76,10 +76,11 @@ GameObject:
   - component: {fileID: -7415805111941560216}
   - component: {fileID: -8647356248777130681}
   - component: {fileID: 231975232891534430}
-  - component: {fileID: 3634221351535946081}
+  - component: {fileID: -268730885740107096}
   - component: {fileID: 3725191602249926691}
-  - component: {fileID: 1661484987619388845}
-  - component: {fileID: 1365525282692657547}
+  - component: {fileID: 7008182310780369492}
+  - component: {fileID: -2681205935937748801}
+  - component: {fileID: 3634221351535946081}
   - component: {fileID: 6801305260103830734}
   m_Layer: 0
   m_Name: PlayerCTAuth
@@ -176,7 +177,7 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
---- !u!114 &3634221351535946081
+--- !u!114 &-268730885740107096
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -185,12 +186,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 285140413904862053}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8d0727d5ae3244e3b569694d3912374, type: 3}
+  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Animator: {fileID: -8647356248777130681}
-  m_ParameterSendBits: 0
-  m_SendRate: 0.1
+  SyncPositionX: 1
+  SyncPositionY: 1
+  SyncPositionZ: 1
+  SyncRotAngleX: 1
+  SyncRotAngleY: 1
+  SyncRotAngleZ: 1
+  SyncScaleX: 0
+  SyncScaleY: 0
+  SyncScaleZ: 0
+  PositionThreshold: 0.001
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.01
+  InLocalSpace: 0
+  Interpolate: 1
+  CanCommitToTransform: 0
 --- !u!114 &3725191602249926691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,7 +223,7 @@ MonoBehaviour:
   defaultInitialPlanePosition: {x: -5, y: 5}
   networkPlayerState:
     m_InternalValue: 0
---- !u!114 &1661484987619388845
+--- !u!114 &7008182310780369492
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -219,15 +232,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 285140413904862053}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21dc2be8540ef3244bbf153c375a24b7, type: 3}
+  m_Script: {fileID: 11500000, guid: 5eab88c83f6ab104b84dc10ae675848d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCamera: {fileID: 1998081518933687621}
+  cam: {fileID: 1998081518933687621}
   audioListener: {fileID: 3286396431207839211}
-  velocity: {x: 0, y: 0, z: 0}
-  rotation: {x: 0, y: 0, z: 0}
-  cameraRotation: {x: 0, y: 0, z: 0}
---- !u!114 &1365525282692657547
+  networkVelocity:
+    m_InternalValue: {x: 0, y: 0, z: 0}
+  networkRotation:
+    m_InternalValue: {x: 0, y: 0, z: 0}
+  networkCameraRotation:
+    m_InternalValue: {x: 0, y: 0, z: 0}
+--- !u!114 &-2681205935937748801
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -236,24 +252,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 285140413904862053}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54c9647dc784a46bca664910f182491e, type: 3}
+  m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SyncPositionX: 1
-  SyncPositionY: 1
-  SyncPositionZ: 1
-  SyncRotAngleX: 1
-  SyncRotAngleY: 1
-  SyncRotAngleZ: 1
-  SyncScaleX: 0
-  SyncScaleY: 0
-  SyncScaleZ: 0
-  PositionThreshold: 0.001
-  RotAngleThreshold: 0.01
-  ScaleThreshold: 0.01
-  InLocalSpace: 0
-  Interpolate: 1
-  CanCommitToTransform: 0
+--- !u!114 &3634221351535946081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 285140413904862053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8d0727d5ae3244e3b569694d3912374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Animator: {fileID: -8647356248777130681}
+  m_ParameterSendBits: 0
+  m_SendRate: 0.1
 --- !u!114 &6801305260103830734
 MonoBehaviour:
   m_ObjectHideFlags: 0

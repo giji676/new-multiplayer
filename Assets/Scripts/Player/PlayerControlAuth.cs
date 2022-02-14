@@ -1,3 +1,5 @@
+using Assets.Scripts.Utilities;
+using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -13,18 +15,6 @@ public class PlayerControlAuth : NetworkBehaviour
     }
 
     [SerializeField]
-    private float walkSpeed = 5f;
-
-    [SerializeField]
-    private float runSpeed = 10f;
-
-    [SerializeField]
-    private float currentSpeed = 0f;
-
-    [SerializeField]
-    private float sensitivity = 3f;
-
-    [SerializeField]
     private Vector2 defaultInitialPlanePosition = new Vector2(-4, 4);
 
     [SerializeField]
@@ -32,20 +22,33 @@ public class PlayerControlAuth : NetworkBehaviour
 
     private float _xMov;
     private float _zMov;
+    private float _yRot;
+    private float _xRot;
     private bool _run;
 
-    private PlayerMotorAuth motor;
+    private PlayerMotor motor;
     private Animator animator;
+
+    private Usercmd nextUsercmd;
+    public List<Usercmd> UsercmdToSendToServer;
+    public List<Usercmd> UsercmdToPlay;
+    public uint UsercmdNumber;
+
+    [Tooltip("FREQUENCY OF SENDING INPUTS TO SERVER, IN TERMS OF FIXED UPDATE LOOPS")]
+    public int FrameSyncRate = 5;
 
     private void Start()
     {
+        UsercmdToSendToServer = new List<Usercmd>();
+        UsercmdToPlay = new List<Usercmd>();
+
         if (IsClient && IsOwner)
-        {            
+        {
             // Give the player random position on start
             transform.position = new Vector3(Random.Range(defaultInitialPlanePosition.x, defaultInitialPlanePosition.y), 0, Random.Range(defaultInitialPlanePosition.x, defaultInitialPlanePosition.y));
         }
 
-        motor = GetComponent<PlayerMotorAuth>();
+        motor = GetComponent<PlayerMotor>();
         animator = GetComponent<Animator>();
     }
 
@@ -60,6 +63,41 @@ public class PlayerControlAuth : NetworkBehaviour
         ClientVisuals();
     }
 
+    private void FixedUpdate()
+    {
+        UsercmdNumber++;
+        nextUsercmd.frame = UsercmdNumber;
+        
+        if (IsOwner)
+        {
+            UsercmdToSendToServer.Add(nextUsercmd);
+            UsercmdToPlay.Add(nextUsercmd);
+
+        }
+
+        if (UsercmdNumber % FrameSyncRate == 0)
+        {
+            if (IsOwner)
+            {
+                UpdateUsercmdServerRpc(ByteArrayUtils.ObjectToByteArray(UsercmdToSendToServer));
+                UsercmdToSendToServer.Clear();
+            }
+        }
+
+    }
+
+    [ServerRpc]
+    public void UpdateUsercmdServerRpc(byte[] args)
+    {
+        var _usercmd = args;
+        List<Usercmd> networkUsercmd = (List<Usercmd>)ByteArrayUtils.ByteArrayToObject(_usercmd);
+
+        if (IsServer)
+        {
+            UsercmdToPlay.AddRange(networkUsercmd);
+        }
+    }
+
     private void ClientInput()
     {
         // Player rotation and position input
@@ -67,34 +105,19 @@ public class PlayerControlAuth : NetworkBehaviour
         // Calculate movement velocity as a 3D vector
         _xMov = Input.GetAxisRaw("Horizontal");
         _zMov = Input.GetAxisRaw("Vertical");
-
         _run = Input.GetKey(KeyCode.LeftShift);
-
-        Vector3 _moveHorizontal = transform.right * _xMov;
-        Vector3 _moveVertical = transform.forward * _zMov;
-
-        if (_run)
-        {
-            currentSpeed = runSpeed;
-        }
-        else
-        {
-            currentSpeed = walkSpeed;
-        }
-
-        // Final movement vector
-        Vector3 _velocity = (_moveHorizontal + _moveVertical).normalized * currentSpeed;
-
-        // Calcualte rotation as a 3D vector (turning around)
-        float _yRot = Input.GetAxisRaw("Mouse X");
-        Vector3 _rotation = new Vector3(0f, _yRot, 0f) * sensitivity;
-
-        // Calcualte camera rotation as a 3D vector
-        float _xRot = Input.GetAxisRaw("Mouse Y");
-        Vector3 _cameraRotation = new Vector3(_xRot, 0f, 0f) * sensitivity;
+        _yRot = Input.GetAxisRaw("Mouse X");
+        _xRot = Input.GetAxisRaw("Mouse Y");
 
         // Apply _velocity, _rotation, _cameraRotation in PlayerMotor
-        motor.UpdateClientVelocityRotation(_velocity, _rotation, _cameraRotation);
+        nextUsercmd = new Usercmd() {
+            horizontalInput = _xMov,
+            verticalInput = _zMov,
+            runInput = _run,
+            mouseXInput = _yRot,
+            mouseYInput = _xRot
+        };
+        // motor.UpdateClientVelocityRotation(_velocity, _rotation, _cameraRotation);
     }
 
     [ServerRpc]
